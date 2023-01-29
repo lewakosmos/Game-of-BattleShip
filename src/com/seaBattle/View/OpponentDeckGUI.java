@@ -3,7 +3,6 @@ package com.seaBattle.View;
 import com.seaBattle.Controller.GamePlayProcessListener;
 import com.seaBattle.Model.DeckSettings;
 import com.seaBattle.Model.OpponentDeckAggregator;
-import com.seaBattle.Model.PlayerDeckAggregator;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,25 +34,30 @@ public class OpponentDeckGUI implements DeckGUI {
                 opponentPinkButtonList.add(localOpponentDeckButtonPanelButton);
             }
             opponentCommonButtonList.add(localOpponentDeckButtonPanelButton);
-            localOpponentDeckButtonPanelButton.setBackground(Color.WHITE);
-            localOpponentDeckButtonPanelButton.setForeground(Color.BLACK);
-            localOpponentDeckButtonPanelButton.setFont(new Font("Times New Roman", Font.BOLD, 0));
+            deckButtonSetInitialValue(localOpponentDeckButtonPanelButton);
             opponentDeckButtonPanel.add(localOpponentDeckButtonPanelButton);
         }
         return opponentDeckButtonPanel;
+    }
+    private void deckButtonSetInitialValue(JButton deckButton){
+        deckButton.setBackground(Color.WHITE);
+        deckButton.setForeground(Color.BLACK);
+        deckButton.setEnabled(false);
+        deckButton.setFont(new Font("Times New Roman", Font.BOLD, 0));
     }
     public JPanel southLayoutPanelButtonCreator(){
         JPanel startButtonPanel = new JPanel();
         startButtonPanel.setPreferredSize(new Dimension(450, 50));
         startButton = new JButton("Start Game");
         startButton.setBackground(Color.WHITE);
+        startButton.setEnabled(false);
         startListenerImplementor();
         startButtonPanel.add(startButton);
         return startButtonPanel;
     }
     public void startListenerImplementor(){
         GamePlayProcessListener gppl = new GamePlayProcessListener();
-        gppl.gamePlay();
+        gppl.startActionCreator();
     }
     public ArrayList<JButton> getOpponentPinkButtonList(){
         return opponentPinkButtonList;

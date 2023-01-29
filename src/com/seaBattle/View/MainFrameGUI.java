@@ -8,11 +8,12 @@ public class MainFrameGUI {
     public void graphicPartStarter(){
         mainFrameCreator();
         playerPanelAdd();
+        scoreBoardPanelAdd();
         opponentPanelAdd();
     }
     public void mainFrameCreator(){
         mainFrame = new JFrame();
-        mainFrame.setSize(940, 450);
+        mainFrame.setSize(1050, 450);
         mainFrame.setLocation(600, 400);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -23,6 +24,10 @@ public class MainFrameGUI {
     public void opponentPanelAdd(){
         OpponentDeckGUI odGUI = new OpponentDeckGUI();
         mainFrame.getContentPane().add(BorderLayout.EAST, odGUI.deckCreator());
+    }
+    public void scoreBoardPanelAdd(){
+        ScoreBoardPanel sbp = new ScoreBoardPanel();
+        mainFrame.getContentPane().add(BorderLayout.CENTER, sbp.scoreBoardPanelCreator());
     }
     public JFrame getMainFrame(){
         return mainFrame;

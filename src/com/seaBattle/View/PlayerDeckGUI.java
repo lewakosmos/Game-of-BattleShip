@@ -25,7 +25,6 @@ public class PlayerDeckGUI implements DeckGUI {
         JPanel playerDeckButtonPanel = new JPanel(new GridLayout(10, 10));
         for(int i = 0; i < ds.getDeckButtonsTextList().size(); i++){
             JButton localPlayerDeckButtonPanelButton = new JButton(ds.getDeckButtonsTextList().get(i));
-            System.out.println(localPlayerDeckButtonPanelButton.getText());
             localPlayerDeckButtonPanelButton.setBackground(Color.WHITE);
             localPlayerDeckButtonPanelButton.setForeground(Color.BLACK);
             localPlayerDeckButtonPanelButton.setFont(new Font("Times New Roman", Font.BOLD, 0));

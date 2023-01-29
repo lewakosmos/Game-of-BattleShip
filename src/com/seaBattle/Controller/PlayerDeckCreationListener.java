@@ -1,12 +1,12 @@
 package com.seaBattle.Controller;
 
 import com.seaBattle.Model.DeckSettings;
+import com.seaBattle.View.OpponentDeckGUI;
 import com.seaBattle.View.PlayerDeckGUI;
+import com.seaBattle.View.ScoreBoardPanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -19,33 +19,38 @@ public class PlayerDeckCreationListener extends DeckSettings {
         PlayerDeckGUI pdGUI = new PlayerDeckGUI();
         playerBoatList = new ArrayList<>();
         for(JButton playerButton : pdGUI.getPlayerCommonButtonList()){
-            playerButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    playerButton.setBackground(Color.PINK);
-                    playerButton.setEnabled(false);
-                    playerBoatList.add(playerButton);
-                }
+            playerButton.addActionListener(e -> {
+                playerButton.setBackground(Color.PINK);
+                playerButton.setEnabled(false);
+                playerBoatList.add(playerButton);
             });
         }
     }
     public void recordActionCreator(){
         PlayerDeckGUI pdGUI = new PlayerDeckGUI();
         playerDeckList = new ArrayList<>();
-        pdGUI.getRecordButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(sizeCheckCreator() && combinedException()){
-                    limitsCreator().forEach(JButton -> JButton.setEnabled(false));
-                    playerDeckList.addAll(playerBoatList);
-                }
-                else{
-                    playerBoatList.forEach(JButton -> JButton.setBackground(Color.WHITE));
-                    playerBoatList.forEach(JButton -> JButton.setEnabled(true));
-                }
-                playerBoatList.clear();
+        pdGUI.getRecordButton().addActionListener(e -> {
+            if(sizeCheckCreator() && combinedException()){
+                recordRightTurn();
+                shipsCreatedCounter();
             }
+            else{
+                recordFalseTurn();
+            }
+            playerBoatList.clear();
+            startButtonBlock();
         });
+    }
+    private void recordRightTurn(){
+        ArrayList<JButton> localLimitsList = new ArrayList<>(limitsCreator());
+        localLimitsList.removeAll(playerBoatList);
+        localLimitsList.forEach(JButton -> JButton.setBackground(Color.LIGHT_GRAY));
+        localLimitsList.forEach(JButton -> JButton.setEnabled(false));
+        playerDeckList.addAll(playerBoatList);
+    }
+    private void recordFalseTurn(){
+        playerBoatList.forEach(JButton -> JButton.setBackground(Color.WHITE));
+        playerBoatList.forEach(JButton -> JButton.setEnabled(true));
     }
     private ArrayList<JButton> limitsCreator(){
         PlayerDeckGUI pdGUI = new PlayerDeckGUI();
@@ -111,10 +116,11 @@ public class PlayerDeckCreationListener extends DeckSettings {
         for(JButton playerButton : playerBoatList){
             letterString = letterString.concat(playerButton.getText().substring(0, 1));
             numberString = numberString.concat(playerButton.getText().substring(1));
+            numberString = numberString.concat(" ");
         }
         char[] letterArray = letterString.toCharArray();
         Arrays.sort(letterArray);
-        char[] numberArray = numberString.toCharArray();
+        int[] numberArray = Arrays.stream(numberString.split(" ")).mapToInt(Integer::parseInt).toArray();
         Arrays.sort(numberArray);
         boolean letterCheck = true;
         boolean numberCheck = true;
@@ -128,7 +134,34 @@ public class PlayerDeckCreationListener extends DeckSettings {
         }
         return letterCheck || numberCheck;
     }
+    private void startButtonBlock(){
+        if(sizeList.isEmpty()){
+            OpponentDeckGUI odGUI = new OpponentDeckGUI();
+            odGUI.getStartButton().setEnabled(true);
+        }
+    }
     public ArrayList<JButton> getPlayerDeckList(){
         return playerDeckList;
+    }
+    public void shipsCreatedCounter(){
+        ScoreBoardPanel scp = new ScoreBoardPanel();
+        switch (playerBoatList.size()) {
+            case 1 -> {
+                int oneSizeNumber = Integer.parseInt(scp.getOneSizeArea().getText()) - 1;
+                scp.getOneSizeArea().setText(Integer.toString(oneSizeNumber));
+            }
+            case 2 -> {
+                int twoSizeNumber = Integer.parseInt(scp.getTwoSizeArea().getText()) - 1;
+                scp.getTwoSizeArea().setText(Integer.toString(twoSizeNumber));
+            }
+            case 3 -> {
+                int threeSizeNumber = Integer.parseInt(scp.getThreeSizeArea().getText()) - 1;
+                scp.getThreeSizeArea().setText(Integer.toString(threeSizeNumber));
+            }
+            case 4 -> {
+                int fourSizeNumber = Integer.parseInt(scp.getFourSizeArea().getText()) - 1;
+                scp.getFourSizeArea().setText(Integer.toString(fourSizeNumber));
+            }
+        }
     }
 }

@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class OpponentDeckAggregator extends DeckSettings {
-    private LinkedList<Integer> boatSizesList;
+    private ArrayList<Integer> boatSizesList;
     private ArrayList<String> deckLimitsList;
     private ArrayList<String> deckList;
     private String randomTileLetter;
@@ -24,7 +24,7 @@ public class OpponentDeckAggregator extends DeckSettings {
         return deckLimitsList.get(randomTileIndex);
     }
     private void boatSizeListCreator(){
-        boatSizesList = new LinkedList<>(Arrays.asList(1, 1, 1, 1, 2, 2, 2, 3, 3, 4));
+        boatSizesList = new ArrayList<>(Arrays.asList(1, 1, 1, 1, 2, 2, 2, 3, 3, 4));
     }
     private void randomTileLetterAndNumberSplitCreator(){
         String randomTileLetterAndNumberText = startTileCreator();
@@ -120,7 +120,6 @@ public class OpponentDeckAggregator extends DeckSettings {
             localBoatList = new ArrayList<>(boatCreator());
         }
         deckList.addAll(localBoatList);
-        System.out.println("step");
         return localBoatList;
     }
     private List<String> boatLimitsCreator(){
