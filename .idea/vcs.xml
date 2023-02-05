@@ -2,8 +2,6 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/SeaBattle" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/src/com/seaBattle/BattleShip" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/src/com/seaBattle/seaBattle" vcs="Git" />
   </component>
 </project>
