@@ -1,6 +1,7 @@
 package com.seaBattle.Controller;
 
 import com.seaBattle.Model.PlayerDeckAggregator;
+import com.seaBattle.View.MainFrameGUI;
 import com.seaBattle.View.OpponentDeckGUI;
 import com.seaBattle.View.PlayerDeckGUI;
 import com.seaBattle.View.ScoreBoardPanel;
@@ -17,6 +18,10 @@ public class GamePlayProcessListener {
             public void actionPerformed(ActionEvent e) {
                 odGUI.getOpponentCommonButtonList().forEach(JButton -> JButton.setEnabled(true));
                 pdGUI.getPlayerCommonButtonList().forEach(JButton -> JButton.setBackground(Color.WHITE));
+                ScoreBoardPanel scp = new ScoreBoardPanel();
+                scp.getShipsToCreatePanel().setVisible(false);
+                MainFrameGUI mfGUI = new MainFrameGUI();
+                mfGUI.getMainFrame().repaint();
                 gameQueue();
             }
         });
@@ -32,10 +37,12 @@ public class GamePlayProcessListener {
                         button.setBackground(Color.PINK);
                         button.setEnabled(false);
                         odGUI.getOpponentPinkButtonList().remove(button);
+                        odGUI.getOpponentCommonButtonList().remove(button);
                     }
                     else{
                         button.setBackground(Color.LIGHT_GRAY);
                         button.setEnabled(false);
+                        odGUI.getOpponentCommonButtonList().remove(button);
                         opponentsTurnAndTimer();
                     }
                 }

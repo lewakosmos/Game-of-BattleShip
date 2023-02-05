@@ -9,6 +9,7 @@ public class ScoreBoardPanel {
     private static JTextArea twoSizeArea;
     private static JTextArea threeSizeArea;
     private static JTextArea fourSizeArea;
+    private static JPanel shipsToCreatePanel;
     public JPanel scoreBoardPanelCreator(){
         JPanel scoreBoard = new JPanel(new BorderLayout());
         scoreBoard.add(BorderLayout.NORTH, turnAreaCreator());
@@ -31,7 +32,7 @@ public class ScoreBoardPanel {
         return intermediatePanel;
     }
     private JPanel shipCreatePanel(){
-        JPanel shipsToCreatePanel = new JPanel(new BorderLayout());
+        shipsToCreatePanel = new JPanel(new BorderLayout());
         shipsToCreatePanel.add(BorderLayout.NORTH, shipCreatePanelTitleArea());
         shipsToCreatePanel.add(BorderLayout.WEST, shipCreateSizePanel());
         shipsToCreatePanel.add(BorderLayout.EAST, shipCreateNumberPanel());
@@ -90,5 +91,8 @@ public class ScoreBoardPanel {
     }
     public JTextArea getFourSizeArea(){
         return fourSizeArea;
+    }
+    public JPanel getShipsToCreatePanel(){
+        return shipsToCreatePanel;
     }
 }
