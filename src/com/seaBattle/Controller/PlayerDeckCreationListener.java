@@ -149,19 +149,28 @@ public class PlayerDeckCreationListener extends DeckSettings {
             case 1 -> {
                 int oneSizeNumber = Integer.parseInt(scp.getOneSizeArea().getText()) - 1;
                 scp.getOneSizeArea().setText(Integer.toString(oneSizeNumber));
+                textAreaColorSwitch(scp.getOneSizeArea());
             }
             case 2 -> {
                 int twoSizeNumber = Integer.parseInt(scp.getTwoSizeArea().getText()) - 1;
                 scp.getTwoSizeArea().setText(Integer.toString(twoSizeNumber));
+                textAreaColorSwitch(scp.getTwoSizeArea());
             }
             case 3 -> {
                 int threeSizeNumber = Integer.parseInt(scp.getThreeSizeArea().getText()) - 1;
                 scp.getThreeSizeArea().setText(Integer.toString(threeSizeNumber));
+                textAreaColorSwitch(scp.getThreeSizeArea());
             }
             case 4 -> {
                 int fourSizeNumber = Integer.parseInt(scp.getFourSizeArea().getText()) - 1;
                 scp.getFourSizeArea().setText(Integer.toString(fourSizeNumber));
+                textAreaColorSwitch(scp.getFourSizeArea());
             }
+        }
+    }
+    private void textAreaColorSwitch(JTextArea textArea){
+        if(textArea.getText().equals("0")){
+            textArea.setForeground(Color.RED);
         }
     }
 }

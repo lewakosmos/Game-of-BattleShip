@@ -42,6 +42,7 @@ public class PlayerDeckAggregator extends PlayerDeckCreationListener {
         PlayerDeckGUI pdGUI = new PlayerDeckGUI();
         PlayerDeckCreationListener pdcl = new PlayerDeckCreationListener();
         localButton.setBackground(Color.PINK);
+        playerCount();
         pdcl.getPlayerDeckList().remove(localButton);
         pdGUI.getPlayerCommonButtonList().remove(localButton);
         hitButtonsList.add(localButton);
@@ -230,5 +231,15 @@ public class PlayerDeckAggregator extends PlayerDeckCreationListener {
         missedButtonsList.removeAll(hitButtonsList);
         pdGUI.getPlayerCommonButtonList().removeAll(missedButtonsList);
     }
+    private void playerCount(){
+        ScoreBoardPanel scp = new ScoreBoardPanel();
+        int minusOne = Integer.parseInt(scp.getPlayerCountLabel().getText());
+        scp.getPlayerCountLabel().setText(Integer.toString(minusOne - 1));
+        if(scp.getPlayerCountLabel().getText().equals("0")){
+            scp.getScoreBoard().remove(scp.getTurnCounterPanel());
+            scp.getScoreBoard().add(scp.getLastPanelPlayer());
+        }
+    }
+
 }
 

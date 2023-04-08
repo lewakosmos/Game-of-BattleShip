@@ -12,17 +12,12 @@ import java.awt.event.ActionListener;
 public class GamePlayProcessListener {
     public void startActionCreator(){
         OpponentDeckGUI odGUI = new OpponentDeckGUI();
-        PlayerDeckGUI pdGUI = new PlayerDeckGUI();
         odGUI.getStartButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                odGUI.getOpponentCommonButtonList().forEach(JButton -> JButton.setEnabled(true));
-                pdGUI.getPlayerCommonButtonList().forEach(JButton -> JButton.setBackground(Color.WHITE));
-                ScoreBoardPanel scp = new ScoreBoardPanel();
-                scp.getShipsToCreatePanel().setVisible(false);
-                MainFrameGUI mfGUI = new MainFrameGUI();
-                mfGUI.getMainFrame().repaint();
-                gameQueue();
+               buttonsHideAndActivation();
+               scorePanelSwitch();
+               gameQueue();
             }
         });
     }
@@ -35,6 +30,7 @@ public class GamePlayProcessListener {
                 public void actionPerformed(ActionEvent e) {
                     if(odGUI.getOpponentPinkButtonList().contains(button)){
                         button.setBackground(Color.PINK);
+                        opponentCount();
                         button.setEnabled(false);
                         odGUI.getOpponentPinkButtonList().remove(button);
                         odGUI.getOpponentCommonButtonList().remove(button);
@@ -53,5 +49,29 @@ public class GamePlayProcessListener {
         PlayerDeckAggregator pda = new PlayerDeckAggregator();
         pda.timerTurn();
     }
+    private void scorePanelSwitch(){
+        ScoreBoardPanel scp = new ScoreBoardPanel();
+        scp.getScoreBoard().remove(scp.getShipsToCreatePanel());
+        scp.getScoreBoard().add(scp.getTurnCounterPanel());
+        MainFrameGUI mfGUI = new MainFrameGUI();
+        mfGUI.getMainFrame().repaint();
+    }
+    private void buttonsHideAndActivation(){
+        OpponentDeckGUI odGUI = new OpponentDeckGUI();
+        PlayerDeckGUI pdGUI = new PlayerDeckGUI();
+        odGUI.getOpponentCommonButtonList().forEach(JButton -> JButton.setEnabled(true));
+        pdGUI.getPlayerCommonButtonList().forEach(JButton -> JButton.setBackground(Color.WHITE));
+    }
+    private void opponentCount(){
+        ScoreBoardPanel scp = new ScoreBoardPanel();
+        int minusOne = Integer.parseInt(scp.getOpponentCountLabel().getText());
+        scp.getOpponentCountLabel().setText(Integer.toString(minusOne - 1));
+        if(scp.getOpponentCountLabel().getText().equals("0")){
+            scp.getScoreBoard().remove(scp.getTurnCounterPanel());
+            scp.getScoreBoard().add(scp.getLastPanelOpponent());
+        }
+    }
+
 }
+
 
